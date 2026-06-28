@@ -1,49 +1,63 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { 
+  FaReact, 
+  FaLaravel, 
+  FaGithub, 
+  FaFigma 
+} from "react-icons/fa";
+import { 
+  SiNextdotjs, 
+  SiTailwindcss, 
+  SiVercel, 
+  SiHostinger, 
+  SiCanva,
+  SiJavascript
+} from "react-icons/si";
+
+const TECH_STACK = [
+  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+  { name: "React", icon: FaReact, color: "#61DAFB" },
+  { name: "Next.js", icon: SiNextdotjs, color: "" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "Laravel", icon: FaLaravel, color: "#FF2D20" },
+  { name: "GitHub", icon: FaGithub, color: "" },
+  { name: "Vercel", icon: SiVercel, color: "" },
+  { name: "Hostinger", icon: SiHostinger, color: "#673DE6" },
+  { name: "Figma", icon: FaFigma, color: "#F24E1E" },
+  { name: "Canva", icon: SiCanva, color: "#00C4CC" },
+];
+
 export default function LogoStrip() {
-  // Using simple text placeholders for the logos to match the "logoipsum" design
   return (
-    <section className="py-12 bg-surface/50 border-y border-muted/50">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-        <div className="flex flex-wrap justify-center md:justify-between items-center gap-8 md:gap-4 opacity-50">
-          
-          <div className="flex items-center gap-2 text-xl font-bold font-serif">
-            <div className="flex gap-1">
-              <div className="w-2 h-2 rounded-full bg-foreground"></div>
-              <div className="w-2 h-2 rounded-full bg-foreground"></div>
-              <div className="w-2 h-2 rounded-full bg-foreground"></div>
-            </div>
-            logoipsum
-          </div>
+    <section className="py-12 bg-surface border-y border-muted overflow-hidden relative flex">
+      {/* Gradient masks for smooth fading on edges */}
+      <div className="absolute inset-y-0 left-0 w-12 md:w-32 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute inset-y-0 right-0 w-12 md:w-32 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none"></div>
 
-          <div className="flex items-center gap-2 text-xl tracking-[0.2em] uppercase font-light">
-            <div className="flex flex-col gap-[2px]">
-              <div className="w-4 h-[2px] bg-foreground"></div>
-              <div className="w-4 h-[2px] bg-foreground"></div>
-              <div className="w-4 h-[2px] bg-foreground"></div>
-            </div>
-            LOGOIPSUM
+      <motion.div
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: 30, // Adjust speed
+        }}
+        className="flex whitespace-nowrap gap-12 md:gap-24 items-center w-max pl-12 md:pl-24"
+      >
+        {/* We duplicate the array to create a seamless loop */}
+        {[...TECH_STACK, ...TECH_STACK].map((tech, index) => (
+          <div key={index} className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity group cursor-default">
+            <tech.icon 
+              className="text-3xl md:text-4xl transition-colors duration-300"
+              style={{ color: tech.color || "currentColor" }}
+            />
+            <span className="text-xl md:text-2xl font-bold tracking-wider uppercase text-foreground/80 group-hover:text-foreground transition-colors">
+              {tech.name}
+            </span>
           </div>
-
-          <div className="flex items-center gap-2 text-xl font-bold">
-            <div className="w-6 h-6 rounded-md bg-foreground flex items-center justify-center text-background text-xs font-black">
-              L
-            </div>
-            logoipsum
-          </div>
-
-          <div className="flex items-center gap-2 text-xl tracking-[0.2em] font-medium">
-            <div className="w-6 h-6 border-2 border-foreground rounded-full flex items-center justify-center text-[10px]">
-              L
-            </div>
-            LOGOIPSUM
-          </div>
-
-          <div className="flex items-center gap-2 text-xl font-bold font-serif italic">
-            <div className="w-6 h-6 bg-foreground rounded-tl-lg rounded-br-lg"></div>
-            logoipsum
-          </div>
-
-        </div>
-      </div>
+        ))}
+      </motion.div>
     </section>
   );
 }

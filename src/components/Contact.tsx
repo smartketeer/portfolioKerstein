@@ -2,16 +2,54 @@
 
 import { motion } from "framer-motion";
 import AnimatedIcon from "./AnimatedIcon";
+import { Mail, MapPin } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 
 export default function Contact() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [result, setResult] = useState("");
+  const [status, setStatus] = useState("idle");
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("loading");
+    setResult("Sending...");
+    
+    const formData = new FormData(event.currentTarget);
+    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Message sent successfully!");
+        setStatus("success");
+        (event.target as HTMLFormElement).reset();
+      } else {
+        setResult(data.message || "Something went wrong.");
+        setStatus("error");
+      }
+    } catch (error) {
+      setResult("Network error. Please try again.");
+      setStatus("error");
+    }
+    
+    setTimeout(() => {
+      setStatus("idle");
+      setResult("");
+    }, 5000);
+  };
 
   const isDark = mounted && theme === "dark";
 
@@ -40,7 +78,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <AnimatedIcon 
-                      src="/icons/mail.json" 
+                      src="https://cdn.lordicon.com/diihvcfp.json" 
                       trigger="hover" 
                       colors={{ primary: isDark ? "#F5F2EB" : "#2C2A28", secondary: "#C9B59C" }} 
                       size={24} 
@@ -48,8 +86,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/50 mb-1">Email</h4>
-                    <a href="mailto:hello@kerstein.dev" className="text-lg font-medium hover:text-accent transition-colors">
-                      hello@kerstein.dev
+                    <a href="mailto:workwithkerstein@outlook.com" className="text-lg font-medium hover:text-accent transition-colors">
+                      workwithkerstein@outlook.com
                     </a>
                   </div>
                 </div>
@@ -57,24 +95,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <AnimatedIcon 
-                      src="/icons/phone.json" 
-                      trigger="hover" 
-                      colors={{ primary: isDark ? "#F5F2EB" : "#2C2A28", secondary: "#C9B59C" }} 
-                      size={24} 
-                    />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/50 mb-1">Phone</h4>
-                    <a href="tel:+1234567890" className="text-lg font-medium hover:text-accent transition-colors">
-                      +1 (234) 567-890
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                    <AnimatedIcon 
-                      src="/icons/map-marker.json" 
+                      src="https://cdn.lordicon.com/oaflahpk.json" 
                       trigger="hover" 
                       colors={{ primary: isDark ? "#F5F2EB" : "#2C2A28", secondary: "#C9B59C" }} 
                       size={24} 
@@ -83,7 +104,7 @@ export default function Contact() {
                   <div>
                     <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/50 mb-1">Location</h4>
                     <p className="text-lg font-medium">
-                      Manila, Philippines
+                      Digos City, Philippines
                     </p>
                   </div>
                 </div>
@@ -99,13 +120,16 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="bg-surface p-8 md:p-10 rounded-3xl border border-muted/50 relative overflow-hidden shadow-xl dark:shadow-black/60"
           >
-            <form className="space-y-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6 relative z-10" onSubmit={onSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium ml-1">Name</label>
                   <input 
+                    suppressHydrationWarning
                     type="text" 
                     id="name" 
+                    name="name"
+                    required
                     placeholder="John Doe" 
                     className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
                   />
@@ -113,8 +137,11 @@ export default function Contact() {
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium ml-1">Email</label>
                   <input 
+                    suppressHydrationWarning
                     type="email" 
                     id="email" 
+                    name="email"
+                    required
                     placeholder="john@example.com" 
                     className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
                   />
@@ -124,8 +151,11 @@ export default function Contact() {
               <div className="space-y-2">
                 <label htmlFor="subject" className="text-sm font-medium ml-1">Subject</label>
                 <input 
+                  suppressHydrationWarning
                   type="text" 
                   id="subject" 
+                  name="subject"
+                  required
                   placeholder="How can I help you?" 
                   className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
                 />
@@ -134,26 +164,42 @@ export default function Contact() {
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium ml-1">Message</label>
                 <textarea 
+                  suppressHydrationWarning
                   id="message" 
+                  name="message"
+                  required
                   rows={5}
                   placeholder="Tell me about your project..." 
                   className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30 resize-none"
                 />
               </div>
 
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-accent text-background dark:text-background font-semibold uppercase tracking-widest py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg shadow-accent/20"
-              >
-                Send Message
-                <AnimatedIcon 
-                  src="https://cdn.lordicon.com/bxxnzvfm.json" 
-                  trigger="hover" 
-                  colors={{ primary: isDark ? "#1A1816" : "#F9F8F6", secondary: isDark ? "#1A1816" : "#F9F8F6" }} 
-                  size={20} 
-                />
-              </motion.button>
+              <div className="space-y-4">
+                <motion.button 
+                  suppressHydrationWarning
+                  type="submit"
+                  disabled={status === "loading" || status === "success"}
+                  whileHover={status === "loading" || status === "success" ? {} : { scale: 1.02 }}
+                  whileTap={status === "loading" || status === "success" ? {} : { scale: 0.98 }}
+                  className="w-full bg-accent text-background dark:text-background font-semibold uppercase tracking-widest py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg shadow-accent/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : "Send Message"}
+                  {status !== "loading" && status !== "success" && (
+                    <AnimatedIcon 
+                      src="https://cdn.lordicon.com/bxxnzvfm.json" 
+                      trigger="hover" 
+                      colors={{ primary: isDark ? "#1A1816" : "#F9F8F6", secondary: isDark ? "#1A1816" : "#F9F8F6" }} 
+                      size={20} 
+                    />
+                  )}
+                </motion.button>
+
+                {result && (
+                  <div className={`text-center text-sm font-medium ${status === "success" ? "text-green-500" : "text-red-500"}`}>
+                    {result}
+                  </div>
+                )}
+              </div>
             </form>
             
             {/* Decorative background element */}

@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { TypeAnimation } from "react-type-animation";
 
 export default function Hero() {
   const { theme } = useTheme();
@@ -28,28 +30,41 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col items-start gap-6"
         >
-          <span className="text-sm font-bold tracking-[0.2em] uppercase text-foreground/60 dark:text-foreground/80">
-            Kerstein Kyle
+          <span className="text-sm font-bold tracking-[0.2em] uppercase text-foreground/50 dark:text-foreground/80 mb-6">
+            Kerstein Kyle Violon
           </span>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-[1.1]">
-            <span className="block text-foreground">Hay! I&apos;m Kerstein</span>
-            <span className="block text-accent mt-2 flex items-center">
-              I&apos;m a Designer
+            <span className="block text-foreground">Hi! I&apos;m Kerstein</span>
+            <span className="block text-accent mt-2 flex items-center text-4xl md:text-5xl lg:text-6xl min-h-[70px]">
+              <TypeAnimation
+                sequence={[
+                  'Web Developer',
+                  2000,
+                  'Graphic Designer',
+                  2000,
+                  'Social Media Manager',
+                  2000,
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+                cursor={false}
+              />
               <motion.span 
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                className="w-[4px] h-[60px] md:h-[70px] bg-accent ml-2 inline-block"
+                className="w-[4px] h-[40px] md:h-[50px] bg-accent ml-2 inline-block"
               />
             </span>
           </h1>
 
           <p className="text-foreground/70 dark:text-foreground/80 max-w-lg leading-relaxed text-lg mt-4">
-            Yet bed any for travelling assistance indulgence unpleasing. Not thoughts all exercise blessing. Indulgence way everything joy alteration boisterous the attachment.
+            Transforming businesses digitally. I build custom web solutions, POS, and inventory systems, while crafting clean, engaging content as a Graphic Designer and SMM.
           </p>
 
           <div className="flex flex-wrap items-center gap-6 mt-8">
-            <button className="bg-accent text-background px-8 py-3.5 rounded-full font-medium flex items-center gap-2 hover:opacity-90 transition-opacity uppercase tracking-wider text-sm">
+            <Link href="#contact" suppressHydrationWarning className="bg-accent text-background px-8 py-3.5 rounded-full font-medium flex items-center gap-2 hover:opacity-90 transition-opacity uppercase tracking-wider text-sm">
               Get in touch
               <AnimatedIcon 
                 src="https://cdn.lordicon.com/bxxnzvfm.json" 
@@ -61,11 +76,13 @@ export default function Hero() {
                 size={20} 
                 className="ml-1" 
               />
-            </button>
+            </Link>
             
             <div className="flex items-center gap-3">
               <motion.a 
-                href="#" 
+                href="https://facebook.com" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-accent text-background dark:text-background flex items-center justify-center hover:bg-accent/90"
                 whileHover="hover"
                 initial="initial"
@@ -82,7 +99,9 @@ export default function Hero() {
               </motion.a>
 
               <motion.a 
-                href="#" 
+                href="https://twitter.com" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-accent/80 text-background dark:text-background flex items-center justify-center hover:bg-accent/90"
                 whileHover="hover"
                 initial="initial"
@@ -156,12 +175,15 @@ export default function Hero() {
           </div>
           
           {/* Main Image */}
-          <div className="w-[400px] h-[500px] rounded-t-[200px] rounded-b-[20px] bg-muted relative overflow-hidden shadow-2xl dark:shadow-black/60 border-4 border-background z-10 transition-colors duration-300">
+          <div className="w-[400px] h-[500px] relative z-10">
+            {/* Background Arch Frame */}
+            <div className="absolute inset-0 rounded-t-[200px] rounded-b-[20px] bg-muted shadow-2xl dark:shadow-black/60 border-4 border-background transition-colors duration-300"></div>
+            
             <Image 
               src="/photo/hero-profile.png"
               alt="Kerstein Kyle"
               fill
-              className="object-cover object-top"
+              className="object-cover object-top scale-[1.15] -translate-y-[8%]"
               priority
             />
           </div>

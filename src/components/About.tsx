@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import AnimatedIcon from "@/components/AnimatedIcon";
+import Link from "next/link";
 
 export default function About() {
   return (
@@ -55,35 +56,35 @@ export default function About() {
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight text-foreground">
-            I am available for <span className="text-accent">UI UX Design</span> project
+            I build systems that work and <span className="text-accent">brands that stand out</span>
           </h2>
 
           <p className="text-foreground/70 text-base md:text-lg max-w-xl leading-relaxed">
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+            As an IT professional, I bridge the gap between robust functionality and frontend aesthetics. I develop custom web solutions, POS, and inventory systems using Laravel and React Vite. On the creative side, I am an SMM and Graphic Designer crafting clean, engaging content via Canva and Figma. Whether you need a high-performing e-commerce site or a complete brand facelift, I deliver end-to-end solutions. Open for freelance projects!
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 w-full max-w-xl">
             <div className="bg-surface border border-muted p-6 rounded-2xl flex flex-col justify-center items-start shadow-sm hover:border-accent/50 transition-colors">
               <AnimatedIcon src="https://cdn.lordicon.com/nizfqlnk.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#2C2A28" }} size={40} className="mb-2" />
-              <span className="text-3xl font-bold text-foreground">280+</span>
-              <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Google Review</span>
+              <span className="text-3xl font-bold text-foreground">Web</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Dev & Systems</span>
             </div>
             <div className="bg-surface border border-muted p-6 rounded-2xl flex flex-col justify-center items-start shadow-sm hover:border-accent/50 transition-colors">
               <AnimatedIcon src="https://cdn.lordicon.com/gqdyesfu.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#2C2A28" }} size={40} className="mb-2" />
-              <span className="text-3xl font-bold text-foreground">15+</span>
-              <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Years Experience</span>
+              <span className="text-3xl font-bold text-foreground">SMM</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Social Media</span>
             </div>
             <div className="bg-surface border border-muted p-6 rounded-2xl flex flex-col justify-center items-start shadow-sm hover:border-accent/50 transition-colors col-span-2 md:col-span-1">
               <AnimatedIcon src="https://cdn.lordicon.com/pithnlch.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#2C2A28" }} size={40} className="mb-2" />
-              <span className="text-3xl font-bold text-foreground">49+</span>
-              <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Award Winning</span>
+              <span className="text-3xl font-bold text-foreground">Graphic</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Design & Brand</span>
             </div>
           </div>
 
-          <button className="mt-4 bg-accent text-background px-8 py-3.5 rounded-full font-medium flex items-center gap-2 hover:opacity-90 transition-opacity uppercase tracking-wider text-sm shadow-md">
+          <Link href="#contact" suppressHydrationWarning className="mt-4 bg-accent text-background px-8 py-3.5 rounded-full font-medium flex items-center gap-2 hover:opacity-90 transition-opacity uppercase tracking-wider text-sm shadow-md w-fit">
             Get in touch
             <AnimatedIcon src="https://cdn.lordicon.com/bxxnzvfm.json" trigger="hover" colors={{ primary: "#F9F8F6", secondary: "#F9F8F6" }} size={20} className="ml-1" />
-          </button>
+          </Link>
         </motion.div>
 
       </div>

@@ -3,22 +3,23 @@
 import { motion, Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import AnimatedIcon from "@/components/AnimatedIcon";
+import Link from "next/link";
 
 const PROJECTS = [
   {
     id: 1,
-    title: "Website Design",
-    category: "Web Design, App Design",
+    title: "Tours Ads Graphics",
+    category: "Higanteng Laagan (SMM)",
   },
   {
     id: 2,
-    title: "Website Design",
-    category: "Web Design, App Design",
+    title: "Travel Quotes",
+    category: "Higanteng Laagan (SMM)",
   },
   {
     id: 3,
-    title: "Website Design",
-    category: "Web Design, App Design",
+    title: "Local Flowershop",
+    category: "Bloomfields (SMM)",
   },
 ];
 
@@ -68,9 +69,9 @@ export default function ProjectGrid() {
               className="group flex flex-col p-4 rounded-3xl bg-surface border border-muted hover:border-accent/50 transition-colors shadow-sm"
             >
               {/* Image Placeholder */}
-              <div className="aspect-[4/3] w-full rounded-2xl bg-background border border-muted/50 overflow-hidden relative mb-4">
-                <div className="absolute inset-0 flex items-center justify-center text-foreground/30 font-medium group-hover:scale-105 transition-transform duration-500">
-                  Image Placeholder
+              <div className="aspect-[4/3] w-full rounded-2xl bg-muted/50 border border-muted overflow-hidden relative mb-4">
+                <div className="absolute inset-0 flex items-center justify-center text-foreground/50 font-medium group-hover:scale-105 transition-transform duration-500 text-center px-4">
+                  {project.title} Preview<br/>(Coming Soon)
                 </div>
               </div>
               
@@ -85,9 +86,9 @@ export default function ProjectGrid() {
                   </p>
                 </div>
                 
-                <button className="w-10 h-10 rounded-full bg-accent text-background flex items-center justify-center shadow-md group-hover:-rotate-45 transition-transform duration-300">
+                <Link href="#contact" suppressHydrationWarning className="w-10 h-10 rounded-full bg-accent text-background flex items-center justify-center shadow-md group-hover:-rotate-45 transition-transform duration-300">
                   <AnimatedIcon src="https://cdn.lordicon.com/bxxnzvfm.json" trigger="hover" colors={{ primary: "#F9F8F6", secondary: "#F9F8F6" }} size={24} />
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}

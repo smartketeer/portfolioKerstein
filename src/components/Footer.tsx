@@ -13,10 +13,10 @@ export default function Footer() {
           <a href="https://www.linkedin.com/in/kersteinviolon1009" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-foreground/80 hover:text-accent transition-colors">
             LinkedIn <ArrowUpRight size={16} />
           </a>
-          <a href="#" className="flex items-center gap-1 text-foreground/80 hover:text-accent transition-colors">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-foreground/80 hover:text-accent transition-colors">
             GitHub <ArrowUpRight size={16} />
           </a>
-          <a href="#" className="flex items-center gap-1 text-foreground/80 hover:text-accent transition-colors">
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-foreground/80 hover:text-accent transition-colors">
             Twitter <ArrowUpRight size={16} />
           </a>
         </div>

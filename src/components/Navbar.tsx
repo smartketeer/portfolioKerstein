@@ -34,15 +34,15 @@ export default function Navbar() {
 
       <div className="hidden md:flex items-center gap-4">
         <ThemeToggle />
-        <button className="flex items-center gap-2 bg-accent text-background px-6 py-2.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity uppercase tracking-wider">
+        <Link href="#contact" suppressHydrationWarning className="flex items-center gap-2 bg-accent text-background px-6 py-2.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity uppercase tracking-wider">
           Let&apos;s Talk
-        </button>
+        </Link>
       </div>
 
       {/* Mobile menu button */}
       <div className="md:hidden flex items-center gap-4">
         <ThemeToggle />
-        <button className="text-foreground">
+        <button suppressHydrationWarning className="text-foreground">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
         </button>
       </div>

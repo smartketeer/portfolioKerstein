@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import LordiconProvider from "@/components/LordiconProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import FloatingButterfly from "@/components/FloatingButterfly";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -28,6 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <FloatingButterfly />
           <LordiconProvider>{children}</LordiconProvider>
         </ThemeProvider>
       </body>
