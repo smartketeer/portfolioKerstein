@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import AnimatedIcon from "./AnimatedIcon";
 import { Mail, MapPin } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -33,9 +33,8 @@ export default function Contact() {
       const data = await response.json();
 
       if (data.success) {
-        setResult("Message sent successfully!");
         setStatus("success");
-        (event.target as HTMLFormElement).reset();
+        // We do not reset to idle, keeping the success state on screen
       } else {
         setResult(data.message || "Something went wrong.");
         setStatus("error");
@@ -44,11 +43,6 @@ export default function Contact() {
       setResult("Network error. Please try again.");
       setStatus("error");
     }
-    
-    setTimeout(() => {
-      setStatus("idle");
-      setResult("");
-    }, 5000);
   };
 
   const isDark = mounted && theme === "dark";
@@ -120,87 +114,126 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="bg-surface p-8 md:p-10 rounded-3xl border border-muted/50 relative overflow-hidden shadow-xl dark:shadow-black/60"
           >
-            <form className="space-y-6 relative z-10" onSubmit={onSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium ml-1">Name</label>
-                  <input 
-                    suppressHydrationWarning
-                    type="text" 
-                    id="name" 
-                    name="name"
-                    required
-                    placeholder="John Doe" 
-                    className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium ml-1">Email</label>
-                  <input 
-                    suppressHydrationWarning
-                    type="email" 
-                    id="email" 
-                    name="email"
-                    required
-                    placeholder="john@example.com" 
-                    className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-medium ml-1">Subject</label>
-                <input 
-                  suppressHydrationWarning
-                  type="text" 
-                  id="subject" 
-                  name="subject"
-                  required
-                  placeholder="How can I help you?" 
-                  className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium ml-1">Message</label>
-                <textarea 
-                  suppressHydrationWarning
-                  id="message" 
-                  name="message"
-                  required
-                  rows={5}
-                  placeholder="Tell me about your project..." 
-                  className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30 resize-none"
-                />
-              </div>
-
-              <div className="space-y-4">
-                <motion.button 
-                  suppressHydrationWarning
-                  type="submit"
-                  disabled={status === "loading" || status === "success"}
-                  whileHover={status === "loading" || status === "success" ? {} : { scale: 1.02 }}
-                  whileTap={status === "loading" || status === "success" ? {} : { scale: 0.98 }}
-                  className="w-full bg-accent text-background dark:text-background font-semibold uppercase tracking-widest py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg shadow-accent/20 disabled:opacity-70 disabled:cursor-not-allowed"
+            <AnimatePresence mode="wait">
+              {status === "success" ? (
+                <motion.div 
+                  key="success-ui"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative z-10 flex flex-col items-center justify-center h-full min-h-[400px] text-center"
                 >
-                  {status === "loading" ? "Sending..." : status === "success" ? "Sent!" : "Send Message"}
-                  {status !== "loading" && status !== "success" && (
+                  <div className="w-24 h-24 rounded-full bg-green-500/10 flex items-center justify-center mb-6">
                     <AnimatedIcon 
-                      src="https://cdn.lordicon.com/bxxnzvfm.json" 
-                      trigger="hover" 
-                      colors={{ primary: isDark ? "#1A1816" : "#F9F8F6", secondary: isDark ? "#1A1816" : "#F9F8F6" }} 
-                      size={20} 
+                      src="https://cdn.lordicon.com/lupuorrc.json" 
+                      trigger="loop" 
+                      colors={{ primary: "#22c55e", secondary: "#22c55e" }} 
+                      size={60} 
                     />
-                  )}
-                </motion.button>
-
-                {result && (
-                  <div className={`text-center text-sm font-medium ${status === "success" ? "text-green-500" : "text-red-500"}`}>
-                    {result}
                   </div>
-                )}
-              </div>
-            </form>
+                  <h3 className="text-3xl font-bold uppercase tracking-wide mb-4">Message Sent!</h3>
+                  <p className="text-foreground/70 text-lg mb-8 max-w-sm">
+                    Thank you for reaching out. I have received your message and will get back to you as soon as possible.
+                  </p>
+                  <button 
+                    onClick={() => { setStatus("idle"); setResult(""); }}
+                    className="bg-accent text-background font-semibold uppercase tracking-widest px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
+                  >
+                    Send Another
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form 
+                  key="form-ui"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6 relative z-10" 
+                  onSubmit={onSubmit}
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-sm font-medium ml-1">Name</label>
+                      <input 
+                        suppressHydrationWarning
+                        type="text" 
+                        id="name" 
+                        name="name"
+                        required
+                        placeholder="John Doe" 
+                        className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium ml-1">Email</label>
+                      <input 
+                        suppressHydrationWarning
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        required
+                        placeholder="john@example.com" 
+                        className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="subject" className="text-sm font-medium ml-1">Subject</label>
+                    <input 
+                      suppressHydrationWarning
+                      type="text" 
+                      id="subject" 
+                      name="subject"
+                      required
+                      placeholder="How can I help you?" 
+                      className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-sm font-medium ml-1">Message</label>
+                    <textarea 
+                      suppressHydrationWarning
+                      id="message" 
+                      name="message"
+                      required
+                      rows={5}
+                      placeholder="Tell me about your project..." 
+                      className="w-full bg-background border border-muted rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all placeholder:text-foreground/30 resize-none"
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <motion.button 
+                      suppressHydrationWarning
+                      type="submit"
+                      disabled={status === "loading"}
+                      whileHover={status === "loading" ? {} : { scale: 1.02 }}
+                      whileTap={status === "loading" ? {} : { scale: 0.98 }}
+                      className="w-full bg-accent text-background dark:text-background font-semibold uppercase tracking-widest py-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg shadow-accent/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {status === "loading" ? "Sending..." : "Send Message"}
+                      {status !== "loading" && (
+                        <AnimatedIcon 
+                          src="https://cdn.lordicon.com/bxxnzvfm.json" 
+                          trigger="hover" 
+                          colors={{ primary: isDark ? "#1A1816" : "#F9F8F6", secondary: isDark ? "#1A1816" : "#F9F8F6" }} 
+                          size={20} 
+                        />
+                      )}
+                    </motion.button>
+
+                    {result && status !== "loading" && (
+                      <div className="text-center text-sm font-medium text-red-500">
+                        {result}
+                      </div>
+                    )}
+                  </div>
+                </motion.form>
+              )}
+            </AnimatePresence>
             
             {/* Decorative background element */}
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
