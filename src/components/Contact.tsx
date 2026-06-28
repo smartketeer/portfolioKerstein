@@ -40,7 +40,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <AnimatedIcon 
-                      name="mail" 
+                      src="/icons/mail.json" 
                       trigger="hover" 
                       colors={{ primary: isDark ? "#F5F2EB" : "#2C2A28", secondary: "#C9B59C" }} 
                       size={24} 
@@ -57,7 +57,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <AnimatedIcon 
-                      name="phone" 
+                      src="/icons/phone.json" 
                       trigger="hover" 
                       colors={{ primary: isDark ? "#F5F2EB" : "#2C2A28", secondary: "#C9B59C" }} 
                       size={24} 
@@ -74,7 +74,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4 group">
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <AnimatedIcon 
-                      name="location" 
+                      src="/icons/map-marker.json" 
                       trigger="hover" 
                       colors={{ primary: isDark ? "#F5F2EB" : "#2C2A28", secondary: "#C9B59C" }} 
                       size={24} 
