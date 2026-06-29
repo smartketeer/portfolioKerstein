@@ -70,12 +70,12 @@ export default function About() {
               <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Dev & Systems</span>
             </div>
             <div className="bg-surface border border-muted p-6 rounded-2xl flex flex-col justify-center items-start shadow-sm hover:border-accent/50 transition-colors">
-              <AnimatedIcon src="https://cdn.lordicon.com/gqdyesfu.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#2C2A28" }} size={40} className="mb-2" />
+              <AnimatedIcon src="https://cdn.lordicon.com/pithnlch.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#2C2A28" }} size={40} className="mb-2" />
               <span className="text-3xl font-bold text-foreground">SMM</span>
               <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Social Media</span>
             </div>
             <div className="bg-surface border border-muted p-6 rounded-2xl flex flex-col justify-center items-start shadow-sm hover:border-accent/50 transition-colors col-span-2 md:col-span-1">
-              <AnimatedIcon src="https://cdn.lordicon.com/pithnlch.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#2C2A28" }} size={40} className="mb-2" />
+              <AnimatedIcon src="https://cdn.lordicon.com/wloilxuq.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#2C2A28" }} size={40} className="mb-2" />
               <span className="text-3xl font-bold text-foreground">Graphic</span>
               <span className="text-xs font-medium uppercase tracking-wider text-foreground/60 mt-1">Design & Brand</span>
             </div>
