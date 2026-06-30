@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Link from "next/link";
 
@@ -80,7 +80,7 @@ export default function Services() {
                </p>
 
                <Link href={service.link || "#contact"} target={service.link ? "_blank" : undefined} rel={service.link ? "noopener noreferrer" : undefined} suppressHydrationWarning className="flex w-fit items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent hover:opacity-80 transition-opacity mt-auto">
-                 {service.cta} <AnimatedIcon src="https://cdn.lordicon.com/bxxnzvfm.json" trigger="hover" colors={{ primary: "#C9B59C", secondary: "#C9B59C" }} size={20} />
+                 {service.cta} <ArrowUpRight size={18} className="ml-1" />
                </Link>
             </motion.div>
           ))}
