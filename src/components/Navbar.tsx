@@ -1,14 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import icon from "@/app/icon.png";
 
 export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 lg:px-24 py-6 bg-background/80 backdrop-blur-md border-b border-muted/50 transition-colors duration-300">
       <div className="flex items-center gap-2">
-        {/* Placeholder for Logo Icon */}
-        <div className="w-8 h-8 rounded bg-accent text-background flex items-center justify-center font-bold text-lg">
-          K
-        </div>
+        <Image src={icon} alt="Logo" width={40} height={40} className="object-contain dark:invert" />
         <span className="text-xl font-bold tracking-wider uppercase text-foreground">
           Kerstein
         </span>
