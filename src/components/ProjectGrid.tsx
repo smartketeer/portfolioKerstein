@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { motion, Variants, AnimatePresence } from "framer-motion";
+import { ArrowRight, X } from "lucide-react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Link from "next/link";
 import Image from "next/image";
@@ -41,6 +42,8 @@ const itemVariants: Variants = {
 };
 
 export default function ProjectGrid() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <section id="projects" className="py-24 px-6 md:px-12 lg:px-24 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -73,7 +76,10 @@ export default function ProjectGrid() {
               className="group flex flex-col p-4 rounded-3xl bg-surface border border-muted hover:border-accent/50 transition-colors shadow-sm"
             >
               {/* Image */}
-              <div className="aspect-[4/3] w-full rounded-2xl bg-muted/50 border border-muted overflow-hidden relative mb-4">
+              <div 
+                className="aspect-[4/3] w-full rounded-2xl bg-muted/50 border border-muted overflow-hidden relative mb-4 cursor-pointer"
+                onClick={() => setSelectedImage(project.image)}
+              >
                 <Image 
                   src={project.image}
                   alt={project.title}
@@ -107,6 +113,41 @@ export default function ProjectGrid() {
            <div className="w-2 h-2 rounded-full border border-foreground/30"></div>
         </div>
       </div>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-12 cursor-pointer"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-6xl flex justify-center items-center h-full max-h-[90vh]"
+            >
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-0 right-0 md:-top-4 md:-right-4 z-10 w-10 h-10 bg-black/60 hover:bg-black/90 text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-md"
+              >
+                <X size={20} />
+              </button>
+              <Image 
+                src={selectedImage}
+                alt="Project Full View"
+                width={1600}
+                height={1200}
+                className="object-contain w-auto h-auto max-h-full max-w-full rounded-lg shadow-2xl"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
