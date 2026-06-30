@@ -4,22 +4,26 @@ import { motion, Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Link from "next/link";
+import Image from "next/image";
 
 const PROJECTS = [
   {
     id: 1,
     title: "Tours Ads Graphics",
     category: "Higanteng Laagan (SMM)",
+    image: "/photo/toursads.jpg",
   },
   {
     id: 2,
     title: "Travel Quotes",
     category: "Higanteng Laagan (SMM)",
+    image: "/photo/travelquotes.jpg",
   },
   {
     id: 3,
     title: "Local Flowershop",
     category: "Bloomfields (SMM)",
+    image: "/photo/bloom.jpg",
   },
 ];
 
@@ -68,11 +72,14 @@ export default function ProjectGrid() {
               variants={itemVariants}
               className="group flex flex-col p-4 rounded-3xl bg-surface border border-muted hover:border-accent/50 transition-colors shadow-sm"
             >
-              {/* Image Placeholder */}
+              {/* Image */}
               <div className="aspect-[4/3] w-full rounded-2xl bg-muted/50 border border-muted overflow-hidden relative mb-4">
-                <div className="absolute inset-0 flex items-center justify-center text-foreground/50 font-medium group-hover:scale-105 transition-transform duration-500 text-center px-4">
-                  {project.title} Preview<br/>(Coming Soon)
-                </div>
+                <Image 
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
               
               {/* Content area */}
